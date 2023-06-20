@@ -1,6 +1,6 @@
-import { access, lstat, readdir } from 'node:fs/promises';
-import { join } from 'node:path';
-export const structure = {}
+import { access, lstat, readdir } from "node:fs/promises";
+import { join } from "node:path";
+export const structure = {};
 export const list = async (path) => {
   try {
     const files = [];
@@ -14,19 +14,19 @@ export const list = async (path) => {
 
       if (stats.isFile()) {
         files.push(file);
-      } else if(stats.isDirectory()) {
+      } else if (stats.isDirectory()) {
         directories.push(file);
       }
     }
 
-const sortedFiles = files.sort();
-const sortedDirectories = directories.sort();
-structure.sortedFiles = sortedFiles;
-structure.sortedDirectories = sortedDirectories;
+    const sortedFiles = files.sort();
+    const sortedDirectories = directories.sort();
+    structure.sortedFiles = sortedFiles;
+    structure.sortedDirectories = sortedDirectories;
   } catch (error) {
-    throw new Error('FS operation failed');
+    throw new Error("FS operation failed");
   }
 };
 
 // Example usage:
-list('.');
+list(".");

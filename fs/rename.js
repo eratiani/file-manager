@@ -8,17 +8,14 @@ export const rename = async (path, filename, newFileName) => {
   const errMsg = "FS operation failed";
   try {
     await access(oldPath);
-     renameFile(oldPath, newPath, (error) => {
+    renameFile(oldPath, newPath, (error) => {
       if (error) {
         console.error("File rename failed:", error);
         return;
       }
     });
   } catch (error) {
-   
-      throw new Error(errMsg);
-   
+    throw new Error(errMsg);
   }
   // Write your code here
 };
-

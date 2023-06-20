@@ -1,3 +1,3 @@
-import { homedir } from 'os';
+import { homedir } from "os";
 const home = { value: homedir() };
-export default home; 
+export default home;

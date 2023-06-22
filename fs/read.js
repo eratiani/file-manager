@@ -3,10 +3,9 @@ import { join } from "node:path";
 
 export const read = async (path) => {
   try {
-    const file = join(path);
-    await access(file);
+    await access(path);
 
-    const res = await readFile(file);
+    const res = await readFile(path);
     console.log(res.toString());
   } catch (error) {
     throw new Error("FS operation failed");

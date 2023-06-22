@@ -9,4 +9,8 @@ export const commands = {
   mv: "copy file, delete original File",
   cp: "copy file",
   add: "create file",
+  os: `os --EOL, os --cpus, os --homedir, os --username, os --architecture`,
+  hash: "Calculate hash for file",
+  compress: "Compress file",
+  decompress: "Decompress file",
 };

@@ -1,12 +1,19 @@
-import { access, cp } from "node:fs/promises";
-import { join } from "node:path";
-
-export const copy = async (path, failname, newPath) => {
-  const dirPath = join(path, failname);
-  const targetPath = join(newPath, failname);
+import { access, cp, lstat } from "node:fs/promises";
+import { join, parse } from "node:path";
+import { copyFile } from "./copyFile.js";
+export const copy = async (failname, newPath) => {
   try {
-    await access(join(newPath));
-    await cp(dirPath, targetPath, { recursive: true });
+    const first = join(failname);
+    const second = join(newPath);
+    // await access(second);
+    await access(first);
+    const stats = await lstat(first);
+    if (stats.isFile()) {
+      await copyFile(first, second);
+    } else if (stats.isDirectory()) {
+      const { base } = parse(failname);
+      await cp(first, join(second, base), { recursive: true });
+    }
   } catch (error) {
     throw new Error(error.message);
   }

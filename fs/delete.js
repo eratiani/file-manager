@@ -1,14 +1,19 @@
-import { access, unlink } from "node:fs/promises";
-import { join } from "node:path";
+import { access, unlink, rmdir, lstat } from "node:fs/promises";
 
 export const remove = async (path) => {
   try {
-    const fileToRemove = join(path);
-    await access(fileToRemove);
-    await unlink(fileToRemove);
+    await access(path);
+
+    const stats = await lstat(path);
+    if (stats.isFile()) {
+      await unlink(path);
+    } else if (stats.isDirectory()) {
+      //// did not implement fully as it appears to not be required by task
+      await rmdir(path);
+    }
   } catch (error) {
     throw new Error(error.message);
   }
 
-  // Write your code here
+  // Write your code hereQA
 };

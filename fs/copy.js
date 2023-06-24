@@ -5,7 +5,6 @@ export const copy = async (failname, newPath) => {
   try {
     const first = join(failname);
     const second = join(newPath);
-    // await access(second);
     await access(first);
     const stats = await lstat(first);
     if (stats.isFile()) {

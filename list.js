@@ -27,6 +27,3 @@ export const list = async (path) => {
     throw new Error("FS operation failed");
   }
 };
-
-// Example usage:
-list(".");

@@ -5,6 +5,7 @@ import {
   argv as inputArgs,
 } from "node:process";
 import os from "os";
+
 import home from "./home.js";
 import { changeDirectory } from "./changeDir.js";
 import { sortList as list } from "./sort-list.js";
@@ -17,7 +18,6 @@ import { compress } from "./zipping/compress.js";
 import { decompress } from "./zipping/decompress.js";
 import { calculateHash } from "./hash/calcHash.js";
 import { checkPath } from "./utility.js";
-import { join } from "node:path";
 import { commands } from "./commands.js";
 const rl = readline.createInterface({ input, output });
 
@@ -28,7 +28,14 @@ console.log("home is", home.value);
 const userNmae = args[0].split("=")[1];
 console.log(`Welcome to the File Manager, ${userNmae}!`);
 console.log("press help to see all the commands!");
+rl.on("SIGINT", function () {
+  process.emit("SIGINT");
+});
 
+process.on("SIGINT", function () {
+  console.log(`\nThank you for using File Manager, ${userNmae}, goodbye!`);
+  process.exit();
+});
 async function handleInput() {
   while (true) {
     const answer = await rl.question(`You are currently in ${home.value} `);
@@ -136,6 +143,7 @@ async function handleInput() {
         await compress(path1, path2);
       } catch (error) {
         console.log(error.message);
+        console.log("use full path with extention");
       }
     } else if (answer.startsWith("decompress")) {
       try {
@@ -144,6 +152,7 @@ async function handleInput() {
         await decompress(path1, path2);
       } catch (error) {
         console.log(error.message);
+        console.log("target path should be without file name or extention");
       }
     } else {
       console.log("Invalid input");

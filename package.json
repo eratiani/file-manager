@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "this is file manager assignment",
   "type": "module",
-  "main": "ss.js",
+  "main": "fileManager.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node fileManager.js"
   },
   "keywords": [],
   "author": "",
